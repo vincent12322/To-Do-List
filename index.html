@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="styles.css">
+  <head>
+    <title>To Do List</title>
+  </head>
+  <body>
+    <section id="grid">
+
+
+    <div id="inputBox">
+        <input type="text" id="inputText" placeholder="Enter activity here..."></input>
+        <button type="button" id="addButton">+</button>
+    </div>
+    <div id="container">
+      <ul>
+<!--Empty List-->
+      </ul>
+      <div id="footer">
+      </div>
+    </div>
+    </section>
+  </body>
+</html>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+  var i = 0;
+  var count = 0;
+  var completed = 0;
+  $('div#footer').html('<div id="footer">Total Activities: ' + count + ' Completed: ' + completed +'</div>');
+document.addEventListener("keydown", enterDown, false);
+document.addEventListener("keydown", deleteDown, false);
+function enterDown(e) {
+    if(e.keyCode === 13){
+      $("#addButton").click();
+    }
+  }
+
+function deleteDown(e) {
+  if(!($("ul").length === 0)){
+    if(e.keyCode === 8){
+      $("li:first").checkMeOut(this);
+    }
+  }
+
+    }
+      $("#addButton").click(function() {
+          var val = $("#inputText").val();
+        if (val === '') { alert(
+          "Please write something before trying to add");
+        }
+        else {
+          var val = $("#inputText").val();
+          if(i === 0){
+            $('ul').prepend('<li class="gray" onclick="checkMeOut(this)">'+ val +'</li>');
+            i =- 1;
+            count++;
+            $('div#footer').html('<div id="footer">Total Activities: ' + count + ' Completed: ' + completed +'</div>');
+          }
+          else {
+            $('ul').prepend('<li class="white" onclick="checkMeOut(this)">'+ val +'</li>');
+            i += 1;
+            count++;
+            $('div#footer').html('<div id="footer">Total Activities: ' + count + ' Completed: ' + completed +'</div>');
+          }
+          }
+            $('li:first').hide().show(375);
+            $("#inputText").val("");
+        });
+
+function checkMeOut(element) {
+  $(element).toggleClass('checked');
+  setTimeout(function() {
+      $(element).animate({left: "-400px"}).slideUp(function() {
+      $(element).display = "none";
+      $(element).remove();
+      count--;
+      completed++;
+      $('div#footer').html('<div id="footer">Total Activities: ' + count + ' Completed: ' + completed +'</div>');
+
+    });
+  }, "easing");
+}
+
+</script>
